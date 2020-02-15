@@ -1,4 +1,4 @@
-module Car
+module Trains.Car
   ( mkCar
   )
   where
