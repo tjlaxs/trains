@@ -6,7 +6,7 @@ module Trains.Car
   
 import Trains.Seat
 
-import qualified Data.Map as M
+import qualified Data.Map.Lazy as M
 
 type CarNumber = Int
 type Seats = M.Map SeatNumber Seat
@@ -28,4 +28,5 @@ mkCar n = Car $ M.fromList ss
     ss = [(x, mkSeat) | x <- [1 .. n]]
 
 reserveSeat :: Car -> SeatNumber -> Either Error Car
-reserveSeat _ _ = Left LazyCoder
+reserveSeat (Car ss) n = Right $ Car (M.insertWith f n mkSeat ss)
+  where f nv _ = either (\_ -> mkSeat) id $ reserve nv
