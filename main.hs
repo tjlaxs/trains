@@ -3,7 +3,7 @@ module Main where
 import Trains.Seat
 
 main = do
-  let s = mkSeat 3
+  let s = mkSeat
   putStrLn $ show s
   let s2 = reserve s
   putStrLn $ show s2

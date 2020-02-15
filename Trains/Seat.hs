@@ -1,6 +1,8 @@
 module Trains.Seat
   ( mkSeat
   , reserve
+  , Seat
+  , SeatNumber
   ) where
 
 type SeatNumber = Int
@@ -13,20 +15,20 @@ data SeatState
   )
 
 data Seat
-  = Seat SeatNumber SeatState
+  = Seat SeatState
   deriving
   ( Show
   )
   
 data SeatError
-  = SeatNotFree SeatNumber
+  = SeatNotFree
   deriving
   ( Show
   )
   
-mkSeat :: SeatNumber -> Seat
-mkSeat = flip Seat Free
+mkSeat :: Seat
+mkSeat = Seat Free
 
 reserve :: Seat -> Either SeatError Seat
-reserve (Seat n Free) = Right $ Seat n Reserved
-reserve (Seat n _) = Left $ SeatNotFree n
+reserve (Seat Free) = Right $ Seat Reserved
+reserve (Seat _) = Left $ SeatNotFree
