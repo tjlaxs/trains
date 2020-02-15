@@ -1,5 +1,6 @@
 module Trains.Car
   ( mkCar
+  , reserveSeat
   )
   where
   
@@ -15,8 +16,16 @@ data Car
   deriving
   ( Show
   )
-  
+
+data Error = LazyCoder
+  deriving
+  ( Show
+  )
+
 mkCar :: SeatNumber -> Car
 mkCar n = Car $ M.fromList ss
   where
     ss = [(x, mkSeat) | x <- [1 .. n]]
+
+reserveSeat :: Car -> SeatNumber -> Either Error Car
+reserveSeat _ _ = Left LazyCoder
